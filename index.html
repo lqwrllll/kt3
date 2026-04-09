@@ -1,407 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Подарочные коробки | 3D магазин</title>
-    <style>
-        body {
-   margin: 0;
-   overflow: hidden;
-   font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
-        }
-        
-        .shop-ui {
-            position: absolute;
-            bottom: 25px;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            padding: 15px;
-            background: rgba(255, 230, 240, 0.9);
-            backdrop-filter: blur(12px);
-            border-radius: 50px;
-            margin: 0 20px;
-            border: 1px solid #ffb7c5;
-            box-shadow: 0 5px 20px rgba(255, 80, 120, 0.2);
-        }
-        
-        .product-card {
-            background: white;
-            border-radius: 28px;
-            padding: 10px 22px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-            width: 140px;
-            border: 1px solid #ffcddc;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-8px);
-            background: #fffafc;
-            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.25);
-            border-color: #ff99bb;
-        }
-        
-        .product-card h3 {
-            margin: 8px 0 4px;
-            color: #c45a7a;
-            font-weight: 700;
-        }
-        
-        .product-card p {
-            margin: 6px 0;
-            font-size: 20px;
-            font-weight: bold;
-            color: #e84393;
-        }
-        
-        .product-card button {
-            background: #ff8aaa;
-            border: none;
-            padding: 7px 20px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 5px;
-            color: white;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-        
-        .product-card button:hover {
-            background: #ff6b8f;
-            transform: scale(0.96);
-        }
-        
-        .info-panel {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 240, 245, 0.85);
-            backdrop-filter: blur(8px);
-            padding: 8px 20px;
-            border-radius: 40px;
-            color: #b34167;
-            font-weight: 600;
-            z-index: 10;
-            font-size: 14px;
-            border-left: 4px solid #ff88aa;
-            pointer-events: none;
-        }
-        
-        .instruction {
-            position: absolute;
-            bottom: 110px;
-            right: 20px;
-            background: rgba(255, 220, 230, 0.8);
-            padding: 6px 14px;
-            border-radius: 30px;
-            color: #b34167;
-            font-size: 12px;
-            z-index: 10;
-            font-family: monospace;
-            pointer-events: none;
-        }
-        
-        @media (max-width: 700px) {
-            .product-card { width: 115px; padding: 6px 12px; }
-            .product-card h3 { font-size: 14px; }
-            .shop-ui { gap: 12px; }
-            .instruction { bottom: 120px; font-size: 10px; }
-        }
-        
-        .toast-msg {
-            position: absolute;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ff88a8;
-            color: white;
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            z-index: 20;
-            opacity: 0;
-            transition: opacity 0.3s;
-            white-space: nowrap;
-            font-size: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            pointer-events: none;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Магазин свитеровт</title>
+  <style>
+    :root{
+      --bg:#fff7fb;
+      --card:#fff;
+      --text:#2b2b2b;
+      --muted:#946d7f;
+      --accent:#f3a6c2;
+      --accent-2:#f8d7e3;
+      --gap:16px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      padding:20px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{width:100%; max-width:920px}
+
+    header{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:var(--gap)}
+    .brand{font-weight:700; font-size:18px; color:var(--text)}
+    nav ul{list-style:none;padding:0;margin:0;display:flex;gap:12px}
+    nav a{color:var(--muted); text-decoration:none; font-size:14px}
+
+    .hero{
+      background:linear-gradient(180deg,var(--card),var(--accent-2));
+      padding:20px; border-radius:10px;
+      display:grid; grid-template-columns:1fr 220px; gap:16px; align-items:center;
+      box-shadow:0 4px 18px rgba(146,103,119,0.08); transition:transform .18s ease;
+    }
+    .hero:hover{transform:translateY(-4px)}
+    .hero h1{margin:0;font-size:22px;color:var(--text)}
+    .hero p{margin:8px 0 0;color:var(--muted);font-size:14px}
+    .btn{margin-top:12px;background:var(--accent);color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700;transition:transform .12s ease, box-shadow .12s ease}
+    .btn:active{transform:translateY(1px)}
+    .cover{height:120px;border-radius:8px;background:linear-gradient(135deg,#ffdbea,#ffd6e8);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+
+    .products{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .card{background:var(--card);padding:12px;border-radius:10px;text-align:left;box-shadow:0 2px 8px rgba(146,103,119,0.06);display:flex;flex-direction:column;gap:8px;font-size:14px;border:1px solid rgba(0,0,0,0.03);transition:transform .14s ease, box-shadow .14s ease}
+    .card:hover{transform:translateY(-6px); box-shadow:0 14px 30px rgba(146,103,119,0.08)}
+    .thumb{height:120px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .card button{margin-top:auto;padding:9px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer;font-size:13px;font-weight:700}
+
+    .info{margin-top:16px;background:var(--card);padding:12px;border-radius:10px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid rgba(0,0,0,0.03)}
+    footer{margin-top:12px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media (max-width:800px){
+      .hero{grid-template-columns:1fr}
+      .products{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:520px){
+      header{flex-direction:column; align-items:flex-start; gap:10px}
+      .products{grid-template-columns:1fr}
+      .cover{height:100px}
+      .hero h1{font-size:18px}
+    }
+
+    .fade{opacity:0; transform:translateY(8px); animation:appear .45s forwards}
+    .delay1{animation-delay:.08s}
+    .delay2{animation-delay:.16s}
+    .delay3{animation-delay:.24s}
+    @keyframes appear{to{opacity:1; transform:none}}
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <header class="fade delay1" role="banner">
+      <div class="brand">Розовый свитер</div>
+      <nav aria-label="Главное меню">
+        <ul>
+          <li><a href="#products">Коллекция</a></li>
+          <li><a href="#info">О нас</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
 
-    </div>
-    <div class="shop-ui">
-        <div class="product-card" data-product="Нежная роза">
-            <h3> Нежная роза</h3>
-            <p>1 290 ₽</p>
-            <button class="buy-btn">Купить</button>
+    <main>
+      <section class="hero fade delay2" aria-labelledby="hero-title" role="region">
+        <div>
+          <h1 id="hero-title">Мягкие свитера для вашего уюта</h1>
+          <p>Новая коллекция.</p>
+          <button class="btn" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Посмотреть</button>
         </div>
-        <div class="product-card" data-product="Клубничный восторг">
-            <h3>Клубничный</h3>
-            <p>1 590 ₽</p>
-            <button class="buy-btn">Купить</button>
-        </div>
-        <div class="product-card" data-product="Лавандовая мечта">
-            <h3> Лавандовый</h3>
-            <p>1 790 ₽</p>
-            <button class="buy-btn">Купить</button>
-        </div>
-        <div class="product-card" data-product="Золотая симфония">
-            <h3> Золотая</h3>
-            <p>2 190 ₽</p>
-            <button class="buy-btn">Купить</button>
-        </div>
-    </div>
-    <div class="instruction">
-      
-    <div id="toast" class="toast-msg"> Добавлено в корзину</div>
+ </section>
 
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
-            }
-        }
-    </script>
+      <section id="products" class="products fade delay3" aria-label="Товары">
+        <article class="card" aria-labelledby="p1">
+          <div class="thumb" aria-hidden="true">
+            <img src="https://www.mezzatorre.ru/upload/resize_cache/iblock/97c/342_525_1/gav6vpjzulpbumftbp0pnxu84bh6z2p4.jpg" alt="Свитер 1 — Розовый">
+          </div>
+          <div id="p1"><strong>Свитер берюзовый</strong></div>
+          <div style="color:var(--muted)">Мягкий свитер, свободный крой.</div>
+          <div style="margin-top:8px;font-weight:700">1 499 руб.</div>
+          <button>В корзину</button>
+        </article>
 
-    <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-        
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xffe0ea);
-        scene.fog = new THREE.FogExp2(0xffe0ea, 0.01);
-        
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(3, 1.8, 5);
-        camera.lookAt(0, 0.6, 0);
-        
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.shadowMap.enabled = true;
-        document.body.appendChild(renderer.domElement);
-        
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.zoomSpeed = 1.2;
-        controls.rotateSpeed = 1.0;
-        controls.enableZoom = true;
-        controls.zoomSpeed = 1.5;
-        controls.enablePan = true;
-        controls.target.set(0, 0.7, 0);
-        
-        const ambientLight = new THREE.AmbientLight(0xffccdd, 0.7);
-        scene.add(ambientLight);
-        
-        const mainLight = new THREE.DirectionalLight(0xffddbb, 1.0);
-        mainLight.position.set(2, 4, 2.5);
-        mainLight.castShadow = true;
-        scene.add(mainLight);
-        
-        const backLight = new THREE.PointLight(0xff99bb, 0.6);
-        backLight.position.set(-1.5, 1.2, -2.5);
-        scene.add(backLight);
-        
-        const fillLight = new THREE.PointLight(0xffaa88, 0.5);
-        fillLight.position.set(0.5, 0, 1.5);
-        scene.add(fillLight);
-        
-        const pinkLight = new THREE.PointLight(0xff7aa2, 0.5);
-        pinkLight.position.set(1.5, 1.2, 1.8);
-        scene.add(pinkLight);
-        
-        const groundPlane = new THREE.Mesh(
-            new THREE.PlaneGeometry(6, 6),
-            new THREE.MeshStandardMaterial({ color: 0xffccdd, roughness: 0.4, transparent: true, opacity: 0.35 })
-        );
-        groundPlane.rotation.x = -Math.PI / 2;
-        groundPlane.position.y = -0.55;
-        groundPlane.receiveShadow = true;
-        scene.add(groundPlane);
-        
-        const gridHelper = new THREE.GridHelper(7, 20, 0xffaacc, 0xff88aa);
-        gridHelper.position.y = -0.5;
-        gridHelper.material.transparent = true;
-        gridHelper.material.opacity = 0.25;
-        scene.add(gridHelper);
-        
-        const particleCount = 600;
-        const particleGeo = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-        for (let i = 0; i < particleCount; i++) {
-            particlePositions[i*3] = (Math.random() - 0.5) * 12;
-            particlePositions[i*3+1] = Math.random() * 4;
-            particlePositions[i*3+2] = (Math.random() - 0.5) * 8 - 2;
-        }
-        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        const particleMat = new THREE.PointsMaterial({ color: 0xffaabb, size: 0.04, transparent: true, opacity: 0.5 });
-        const particles = new THREE.Points(particleGeo, particleMat);
-        scene.add(particles);
-        
-        let giftBox = null;
-        const loader = new GLTFLoader();
-        const modelUrl = 'https://raw.githubusercontent.com/lqwrllll/3-/main/untitled%20(1).glb';
-        
-       
-        loader.load(modelUrl, 
-            (gltf) => {
-                giftBox = gltf.scene;
-                giftBox.traverse((node) => {
-                    if (node.isMesh) {
-            node.castShadow = true;
-           node.receiveShadow = true;
-            if (node.material) {
-           node.material.roughness = 0.3;
-        node.material.metalness = 0.1;
-                        }
-                    }
-                });
-                giftBox.position.set(0, -0.25, 0);
-                giftBox.scale.set(1.2, 1.2, 1.2);
-                scene.add(giftBox);
-                loadingDiv.remove();
-                
-                giftBox.scale.set(0, 0, 0);
-                setTimeout(() => {
-                    let t = 0;
-                    const anim = setInterval(() => {
-                        t += 0.08;
-                        const s = Math.min(1.2, t * 1.8);
-                        if (giftBox) giftBox.scale.set(s, s, s);
-                        if (t >= 0.7) clearInterval(anim);
-                    }, 20);
-                }, 100);
-            },
-            (xhr) => {
-                const percent = Math.floor((xhr.loaded / xhr.total) * 100);
-                loadingDiv.textContent = ` Загрузка: ${percent}%`;
-            },
-            (error) => {
-                console.error('Ошибка модели:', error);
-                loadingDiv.textContent = ' Не удалось загрузить модель';
-                loadingDiv.style.backgroundColor = '#c95a6f';
-                setTimeout(() => {
-                    loadingDiv.style.opacity = '0';
-                    setTimeout(() => loadingDiv.remove(), 1500);
-                }, 2500);
-                
-                const fallbackBox = new THREE.Mesh(
-                    new THREE.BoxGeometry(1.1, 1.1, 1.1),
-                    new THREE.MeshStandardMaterial({ color: 0xffa5bb, metalness: 0.2, roughness: 0.3 })
-                );
-                fallbackBox.castShadow = true;
-                fallbackBox.position.set(0, -0.2, 0);
-                scene.add(fallbackBox);
-                
-                const lid = new THREE.Mesh(
-                    new THREE.BoxGeometry(1.2, 0.1, 1.2),
-                    new THREE.MeshStandardMaterial({ color: 0xffb7c5 })
-                );
-                lid.position.y = 0.6;
-                lid.castShadow = true;
-                fallbackBox.add(lid);
-                
-     const ribbon = new THREE.Mesh(new THREE.BoxGeometry(1.25, 0.08, 0.15), new THREE.MeshStandardMaterial({ color: 0xff6699 }));
-                ribbon.position.set(0, 0.55, 0);
-                fallbackBox.add(ribbon);
-                
-   const ribbon2 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.08, 1.25), new THREE.MeshStandardMaterial({ color: 0xff6699 }));
-                ribbon2.position.set(0, 0.55, 0);
-                fallbackBox.add(ribbon2);
-                
-                giftBox = fallbackBox;
-            }
-        );
-       
-       const buyBtns = document.querySelectorAll('.buy-btn');
-        buyBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const card = btn.closest('.product-card');
-                const productName = card.getAttribute('data-product') || 'Коробка';
-         
-               if (giftBox) {
-                    giftBox.userData = { bounce: 0.16 };
-                }
-            });
-        });
-        
-        function bounceBox() {
-            if (giftBox && !giftBox.userData?.bouncing) {
-                giftBox.userData = { bouncing: true, startY: giftBox.position.y || -0.25, progress: 0 };
-                let p = 0;
-                const interval = setInterval(() => {
-                    if (!giftBox) { clearInterval(interval); return; }
-                    p += 0.12;
-                    if (p >= 1.2) {
-                        giftBox.position.y = giftBox.userData.startY;
-                        clearInterval(interval);
-                        if(giftBox.userData) giftBox.userData.bouncing = false;
-                    } else {
-                        const offset = Math.sin(p * Math.PI) * 0.12;
-                        giftBox.position.y = giftBox.userData.startY + offset;
-                    }
-                }, 22);
-            }
-        }
-        
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if(e.target.tagName !== 'BUTTON') bounceBox();
-            });
-        });
-        
-        let time = 0;
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            time += 0.012;
-            
-            if (particles) {
-                particles.rotation.y = time * 0.15;
-                particles.rotation.x = Math.sin(time * 0.3) * 0.1;
-            }
-            
-            if (pinkLight) {
-                pinkLight.intensity = 0.5 + Math.sin(time * 2) * 0.1;
-            }
-            
-            if (giftBox && giftBox.userData && giftBox.userData.bounce) {
-                let val = giftBox.userData.bounce;
-                giftBox.position.y += val;
-                val -= 0.025;
-                if (giftBox.position.y <= -0.25) {
-                    giftBox.position.y = -0.25;
-                    giftBox.userData.bounce = 0;
-                } else {
-                    giftBox.userData.bounce = val;
-                }
-            }
-            
-            controls.update();
-            renderer.render(scene, camera);
-        }
-        
-        animate();
-        
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+        <article class="card" aria-labelledby="p2">
+          <div class="thumb" aria-hidden="true">
+            <img src="https://cdn-sh1.vigbo.com/shops/181666/products/22171549/images/3-fe3d2d26dbaaf4848e54e2b1f08839c7.jpeg" alt="Свитер 2 — Пудра">
+          </div>
+          <div id="p2"><strong>Свитер песочный</strong></div>
+          <div style="color:var(--muted)">Тёплая вязка.</div>
+          <div style="margin-top:8px;font-weight:700">1 999 руб.</div>
+          <button>В корзину</button>
+        </article>
+
+        <article class="card" aria-labelledby="p3">
+          <div class="thumb" aria-hidden="true">
+            <img src="https://static.insales-cdn.com/images/products/1/2144/999532640/%D1%81%D0%B2%D0%B8%D1%82%D0%B5%D1%80-%D1%80%D0%BE%D0%B7%D0%BE%D0%B2%D1%8B%D0%B8%CC%86-%D0%B5%D0%BD%D0%BE%D1%82%D1%8B.jpg" alt="Свитер 3 — Розовый вечер">
+          </div>
+          <div id="p3"><strong>Свитер с енотами</strong></div>
+          <div style="color:var(--muted)">Модный свитер оверсайз</div>
+          <div style="margin-top:8px;font-weight:700">4 199 руб.</div>
+          <button>В корзину</button>
+        </article>
+      </section>
+
+      <section id="info" class="info" aria-label="Информация">
+        <div>Магазин уютных свитеров с новой коллекцией</div>
+        <div style="text-align:right">email: sweatherRUSS@rozovyj.example</div>
+      </section>
+    </main>
+
+    <footer id="contact">Sweathers
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
